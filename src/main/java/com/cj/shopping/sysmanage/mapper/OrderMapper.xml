@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cj.shopping.sysmanage.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.cj.shopping.sysmanage.entity.Order">
+    <id column="oid" jdbcType="INTEGER" property="oid" />
+    <result column="money" jdbcType="DOUBLE" property="money" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="receiveInfo" jdbcType="VARCHAR" property="receiveinfo" />
+    <result column="phoNum" jdbcType="VARCHAR" property="phonum" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="accepter" jdbcType="VARCHAR" property="accepter" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    oid, money, state, receiveInfo, phoNum, order_time, user_id, accepter
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shopping_orders
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <select id="findByUId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shopping_orders
+    where user_id = #{userid}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shopping_orders
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cj.shopping.sysmanage.entity.Order">
+    insert into shopping_orders (oid, money, state, 
+      receiveInfo, phoNum, order_time, 
+      user_id, accepter)
+    values (#{oid,jdbcType=INTEGER}, #{money,jdbcType=DOUBLE}, #{state,jdbcType=INTEGER}, 
+      #{receiveinfo,jdbcType=VARCHAR}, #{phonum,jdbcType=VARCHAR}, #{orderTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=INTEGER}, #{accepter,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cj.shopping.sysmanage.entity.Order" useGeneratedKeys="true" keyProperty="oid">
+    insert into shopping_orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="receiveinfo != null">
+        receiveInfo,
+      </if>
+      <if test="phonum != null">
+        phoNum,
+      </if>
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="accepter != null">
+        accepter,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="receiveinfo != null">
+        #{receiveinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="phonum != null">
+        #{phonum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="accepter != null">
+        #{accepter,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cj.shopping.sysmanage.entity.Order">
+    update shopping_orders
+    <set>
+      <if test="money != null">
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="receiveinfo != null">
+        receiveInfo = #{receiveinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="phonum != null">
+        phoNum = #{phonum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="accepter != null">
+        accepter = #{accepter,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cj.shopping.sysmanage.entity.Order">
+    update shopping_orders
+    set money = #{money,jdbcType=DOUBLE},
+      state = #{state,jdbcType=INTEGER},
+      receiveInfo = #{receiveinfo,jdbcType=VARCHAR},
+      phoNum = #{phonum,jdbcType=VARCHAR},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      accepter = #{accepter,jdbcType=VARCHAR}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>
